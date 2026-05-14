@@ -6,6 +6,7 @@ console.log("本工具包包含适用于 Claude/Gemini CLI 的 AI 技能。");
 console.log("");
 console.log("Available skills / 包含的技能:");
 console.log(" - youtube-channel-planner: Advanced YouTube Channel Creation Planner / YouTube 频道创建高级策划 (AI 专家版)");
+console.log(" - social-writer: Multi-Platform Social Media Copywriter for Indie Hackers / 多平台社交媒体文案写手 (独立开发者版)");
 console.log(" - market-research: Professional Market Research & Competitor Analysis Agent / 专业的市场调研与竞品分析 Agent");
 console.log("");
 console.log("To use these skills in your AI assistant, point them to the `skills/` directory of this repository.");
