@@ -5,13 +5,11 @@
 
 > **Out-of-the-box AI Skills and Agents tailored for Solopreneurs and Indie Hackers.**
 
-[中文文档 (Chinese Documentation)](README.zh-CN.md)
-
 `solo-skills` provides a suite of AI automation skills designed for independent creators. Whether it's competitor research, cross-platform copywriting, or Youtube channel planning, you can invoke them directly in your terminal or seamlessly integrate them into your favorite AI IDEs (Cursor, Windsurf) and AI CLI assistants (Claude Code, Gemini CLI).
 
 ## ✨ Core Features
 * **⚡️ Zero Config**: No tedious setup; invoke instantly via `npx`.
-* **🌍 Internationalization (i18n)**: English by default. Most skills have localized versions (e.g., `zh-CN`). AI agents will automatically pick the language based on your context.
+* **🌍 English First**: Optimized for English language context and global standards.
 * **🛠️ Solopreneur Focus**: Solves high-frequency pain points for solo founders (marketing, development, growth).
 * **📖 Open Source**: Apache 2.0 license.
 

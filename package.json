@@ -1,7 +1,7 @@
 {
   "name": "solo-skills",
   "version": "1.0.0",
-  "description": "为一人公司和独立开发者打造的开箱即用 AI Skill/Agent 库",
+  "description": "Out-of-the-box AI Skills and Agents tailored for Solopreneurs and Indie Hackers.",
   "main": "index.js",
   "bin": {
     "solo-skills": "./bin/cli.js"
