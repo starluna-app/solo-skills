@@ -17,6 +17,7 @@ console.log(" - karpathy-guidelines: Coding principles & extensions to prevent L
 console.log(" - local-drive-clean: macOS & Xcode developer cache and simulator disk space cleaner");
 console.log(" - market-research: Professional market research & competitor analysis agent");
 console.log(" - official-resource-image-pipeline: Official printable/visual resource generation pipeline");
+console.log(" - sl-backend-deploy-sync: Dual-branch synchronization and deployment verification for UAT/PROD repos");
 console.log(" - sl-ios-app-store-release: End-to-end 7-phase App Store release automation via asc CLI");
 console.log(" - sl-ios-release-flow: Safety-gated continuous build shipping and TestFlight delivery");
 console.log(" - social-writer: Multi-platform social media copywriter for indie hackers");

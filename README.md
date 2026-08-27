@@ -63,6 +63,7 @@ npx solo-skills
 | `ios-cache` | Production caching strategies for SwiftUI: duplicate request prevention, offline fallbacks, user partition, and post-mutation sync. | iOS Architecture & Performance |
 | `app-store-screenshot-polisher` | Converts raw iPhone screenshots into App Store 6.9" marketing assets with tasteful typography and calm backgrounds. | ASO & App Store Marketing |
 | `official-resource-image-pipeline` | Prompt-first workflow for creating, approving, versioning, and deploying official printable and visual app resources. | Content & Resource Generation |
+| `sl-backend-deploy-sync` | Dual-branch deployment synchronization agent to verify commit parity, fast-forward merges, and push synchronized updates across UAT and PROD branches. | Multi-Environment Sync & Release |
 | `sl-ios-app-store-release` | End-to-end 7-phase iOS App Store release workflow: gated pre-flight checks, `asc` CLI automation, archive, export, and review submission. | iOS App Store Shipping |
 | `sl-ios-release-flow` | Safety-gated build shipping: blocker reviews, backend deployment verification, and TestFlight upload. | Continuous iOS Delivery |
 | `local-drive-clean` | Safely identifies and purges developer disk bloat (XCTestDevices, DerivedData, old Simulator runtimes, package caches). | macOS Disk Space Recovery |
