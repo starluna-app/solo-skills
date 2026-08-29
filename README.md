@@ -66,6 +66,8 @@ npx solo-skills
 | `sl-backend-deploy-sync` | Dual-branch deployment synchronization agent to verify commit parity, fast-forward merges, and push synchronized updates across UAT and PROD branches. | Multi-Environment Sync & Release |
 | `sl-ios-app-store-release` | End-to-end 7-phase iOS App Store release workflow: gated pre-flight checks, `asc` CLI automation, archive, export, and review submission. | iOS App Store Shipping |
 | `sl-ios-release-flow` | Safety-gated build shipping: blocker reviews, backend deployment verification, and TestFlight upload. | Continuous iOS Delivery |
+| `sl-ios-push-to-testflight` | Complete StarLuna iOS release workflow: commits with architectural rationale, bumps build number monotonically via ASC, archives & exports IPA, and uploads to TestFlight. | Generic iOS TestFlight Shipping |
+| `sl-ios-lunabee-push-to-testflight` | Gated release pipeline for Luna Bee (path): dual-environment backend parity, 3 safety gates, ASC auto-bump, serial archive, TestFlight upload, and multi-locale metadata sync. | Luna Bee iOS TestFlight Shipping |
 | `local-drive-clean` | Safely identifies and purges developer disk bloat (XCTestDevices, DerivedData, old Simulator runtimes, package caches). | macOS Disk Space Recovery |
 | `market-research` | Researches target industries, analyzes competitors, and outputs structured market gap reports. | Idea Validation & Strategy |
 | `social-writer` | Converts changelogs and product updates into tailored copy for Reddit, X/Twitter, and Indie Hackers. | Community Marketing |
