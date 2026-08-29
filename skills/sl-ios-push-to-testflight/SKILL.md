@@ -11,24 +11,27 @@ description: >-
 
 # StarLuna iOS Release & TestFlight Workflow (`sl-ios-push-to-testflight`)
 
-A standardized, end-to-end release pipeline for StarLuna iOS applications (e.g. `Shooting Star`, `Luna Bee`). This skill automates the full progression from dirty worktree to live TestFlight distribution and App Store Connect metadata synchronization while maintaining clean, auditable commit logs and metadata tracking.
+A standardized, end-to-end release pipeline for StarLuna iOS applications built on the Firebase + SwiftUI stack (e.g. `Crackit`, `Shooting Star`). This skill automates the full progression from dirty worktree to live TestFlight distribution and App Store Connect metadata synchronization while maintaining clean, auditable commit logs and metadata tracking.
+
+> **Note on App-Specific Skills**: Applications with different backend architectures (such as `Luna Bee`, which uses Supabase/PostgreSQL/Deno) use dedicated release skills (e.g. `sl-ios-lunabee-push-to-testflight`).
 
 ---
 
-## 🧭 Operating Principles & Skill Seams
+## 🧭 Operating Principles & Architecture Separation
 
-1. **Detailed Semantic Commit Logs**: Every release commit must capture not only *what* changed, but the underlying **architecture design**, **UI/UX decisions**, and **important decision rationale**.
-2. **Monotonic Build Numbers**: Never guess build numbers. Always query App Store Connect via `asc builds next-build-number` (or the project's `testflight-next-build.sh --bump`) to ensure zero build collision.
-3. **Strictly Serial Archive Execution**: Follow project rules—never run `xcodebuild archive` concurrently with tests or simulator processes to prevent SQLite `build.db` lock contention.
-4. **Surgical & Non-Disruptive Metadata Updates**:
+1. **Single Source of Truth**: All generic release workflow logic and reusable scripts reside exclusively in `solo-skills`. App repositories only maintain app-specific configurations (`.asc/app.env`, `project.yml` / `Config/Shared.xcconfig`, `ExportOptions.plist`, `metadata/`, `.asc/releases/`).
+2. **Detailed Semantic Commit Logs**: Every release commit must capture not only *what* changed, but the underlying **architecture design**, **UI/UX decisions**, and **important decision rationale**.
+3. **Monotonic Build Numbers**: Never guess build numbers. Always query App Store Connect via `asc builds next-build-number` (or the skill's `scripts/testflight-next-build.sh --bump`) to ensure zero build collision.
+4. **Strictly Serial Archive Execution**: Follow project rules—never run `xcodebuild archive` concurrently with tests or simulator processes to prevent SQLite `build.db` lock contention.
+5. **Surgical & Non-Disruptive Metadata Updates**:
    - **App Review Notes**: Inspect existing notes; append or refine instructions specifically covering new features from the latest commit range so reviewers have an exact test path.
    - **What's New / TestFlight Notes**: Clear, user-facing summary of new capabilities and fixes since the last released version.
    - **App Description**: Never make drastic rewrites. Make targeted, surgical enhancements reflecting new features and clearly document the diff.
-5. **Reuses Existing Tooling**: Composes with `asc` CLI, `xcodebuildmcp`, and repo-native scripts (`scripts/testflight-next-build.sh`, `scripts/archive-and-export.sh`, `scripts/push-metadata.sh`, `.asc/app.env`).
+6. **Reuses Existing Tooling**: Composes with `asc` CLI, `xcodebuild`, and centralized skill scripts (`testflight-next-build.sh`, `archive-and-export.sh`).
 
 ---
 
-## 🛠️ The 4-Phase Workflow
+## 🛠️ The 5-Phase Workflow
 
 ```mermaid
 flowchart TD
@@ -66,24 +69,18 @@ flowchart TD
 1. **Verify Environment & Config**:
    ```bash
    source .asc/app.env
-   cat Config/Shared.xcconfig | grep -E "MARKETING_VERSION|CURRENT_PROJECT_VERSION"
    ```
 
 2. **Query ASC & Auto-Bump Build Number**:
-   Run the repository build helper to query App Store Connect for the next monotonic build number and update `CURRENT_PROJECT_VERSION`:
+   Run the centralized build helper from `solo-skills` (or direct `asc` CLI) from the root of the target repository:
    ```bash
-   bash scripts/testflight-next-build.sh --bump
-   ```
-   If the script is not present, use the `asc` CLI directly:
-   ```bash
-   NEXT_BUILD=$(asc builds next-build-number --app "$APP_ID" --platform IOS --output json | jq -r '.nextBuildNumber')
-   sed -i '' -E "s/^(CURRENT_PROJECT_VERSION[[:space:]]*=[[:space:]]*)[0-9]+/\1$NEXT_BUILD/" Config/Shared.xcconfig
+   bash ~/Projects/solo-skills/skills/sl-ios-push-to-testflight/scripts/testflight-next-build.sh --bump
    ```
 
 3. **Serial Clean Archive & IPA Export**:
-   Run strictly serially:
+   Run strictly serially from the target repository root:
    ```bash
-   bash scripts/archive-and-export.sh
+   bash ~/Projects/solo-skills/skills/sl-ios-push-to-testflight/scripts/archive-and-export.sh
    ```
    *Verify that `build/ipa/*.ipa` was generated and code signing matches the StarLuna LLC Team ID.*
 
