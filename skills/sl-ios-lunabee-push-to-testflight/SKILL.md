@@ -133,18 +133,24 @@ flowchart TD
 
 ### Phase 5 — Multi-Locale Store Metadata Sync & Runbook Update
 
-1. **Sync Version What's New Release Notes**:
-   Update release notes for the current version:
+> [!IMPORTANT]
+> **Cumulative Release Scope Rule**:
+> When preparing and updating store notes (`What's New`, `Promotional Text`, and `App Review Notes`), always gather all user-facing changes accumulated **since the last live released App Store version & build** (e.g., v1.5.0 Build 57), NOT just the delta from intermediate TestFlight builds.
+> Focus strictly on noticeable, user-friendly improvements in the iOS app (avoid backend/database internal jargon).
+
+1. **Sync Version What's New & Promotional Text**:
+   Update release notes and promotional text for the current version:
    ```bash
    VERSION_ID=$(asc versions list --app "$APP_ID" --platform IOS --output json | jq -r '.data[0].id')
    
    asc localizations update \
      --version "$VERSION_ID" \
      --locale "en-US" \
-     --whats-new "• AI Markdown: Integrated swift-markdown-ui for rich Markdown formatting.
-• Unboxed AI Chat: Clean, card-free assistant responses sitting directly on canvas.
-• Localization: Multi-language support for AI landing action chips and slash commands.
-• Reliability: Bug fixes and map improvements."
+     --whats-new "• AI Markdown: Integrated swift-markdown-ui for rich Markdown formatting across cards.
+• Unboxed AI Chat: Clean, modern card-free assistant responses sitting directly on canvas.
+• 7-Day Local Activities Map: Explore full 7-day upcoming family activities with instant day/evening filters and neighborhood map discovery.
+• Memory Privacy & Controls: Easily manage, turn off, or clear Luna Bee assistant memory at any time.
+• Full Localization: Multi-language support for AI landing action chips and slash commands across all 8 languages."
    ```
 
 2. **Update App Review Notes & Test Credentials**:
@@ -155,7 +161,7 @@ flowchart TD
    asc review details-update \
      --id "$REVIEW_DETAIL_ID" \
      --notes "What's New in Version <version>:
-<Bullet list of major changes>
+<Bullet list of major changes accumulated since last released version>
 
 Demo account credentials:
 Username: apple@starluna.app
