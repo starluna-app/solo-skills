@@ -97,8 +97,4 @@ Always verify the reclaimed space with `df -h /` and present a structured summar
 
 ## Reference Documentation
 
-For detailed architectural rationale, sequence diagrams, and root-cause analysis of developer storage bloat:
-- **Repository Docs:** [docs/sl-local-drive-clean.md](../../docs/sl-local-drive-clean.md)
-- **Skill References:** [references/architecture.md](references/architecture.md)
-
-
+For detailed architectural rationale, sequence diagrams, and root-cause analysis of developer storage bloat, see [references/architecture.md](references/architecture.md).
