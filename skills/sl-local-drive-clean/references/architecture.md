@@ -187,3 +187,47 @@ sequenceDiagram
 | **Homebrew Cache** | `brew cleanup --prune=all || true` | 🟢 Tier 1 | 0.5–2 GB |
 | **Playwright Browsers** | `rm -rf ~/Library/Caches/ms-playwright/*` | 🟡 Tier 2 | 1–3 GB |
 | **Orphaned Simulators** | `xcrun simctl delete unavailable` | 🟢 Tier 1 | 1–5 GB |
+
+---
+
+## 8. Multi-User Storage Architecture & Privacy Isolation
+
+On multi-user macOS workstations, disk storage is partitioned into **Per-User Storage** and **System-Wide Storage**. Understanding this separation is essential for understanding multi-account disk recovery and data privacy.
+
+### 1. Why Running on Another Account Reclaims More Space
+Over **80% to 90% of developer disk bloat is instantiated per-user** inside each user's `$HOME` directory (`~/Library/Developer`, `~/Library/Containers`, `~/.npm`, `~/.cache`):
+- **User A's Environment:** Has its own Xcode test clones (`XCTestDevices`), Docker virtual disk (`Docker.raw`), build caches, and package caches.
+- **User B's Environment:** Has completely independent copies of test clones, Docker disks, and build caches.
+
+If User A runs `sl-local-drive-clean`, only User A's home directory is cleaned. If User B is also a developer or runs Docker/AI tools, **switching to User B's account and running the skill will reclaim additional tens or hundreds of gigabytes** from User B's independent caches.
+
+### 2. Privacy & Zero Cross-Account Data Exposure
+macOS enforces strict POSIX user isolation (standard home directory permissions are `0700` / `drwx------`):
+- **No Cross-User Access:** The cleanup commands strictly reference `$HOME` (`~`). When executed under User B, the script cannot read, inspect, modify, or delete any files, repositories, credentials, or caches belonging to User A.
+- **Zero Information Leakage:** Neither user's private code, git history, or workspace settings are ever exposed to the other account.
+
+### 3. System-Wide vs. Per-User Summary
+
+```mermaid
+flowchart TD
+    subgraph SystemStorage["Shared System-Wide Storage (/Library & APFS)"]
+        S1["Simulator Runtime DMGs (iOS 18/watchOS 11)<br/><i>Cleaned globally by Admin; benefits all users</i>"]
+        S2["APFS Local Snapshots (tmutil)<br/><i>Cleaned globally</i>"]
+    end
+
+    subgraph UserA["User Account A (~/Library)"]
+        UA1["XCTestDevices (100-300 GB)"]
+        UA2["Docker.raw (50-100 GB)"]
+        UA3["DerivedData & Claude VMs (30-60 GB)"]
+    end
+
+    subgraph UserB["User Account B (~/Library)"]
+        UB1["XCTestDevices (Independent copy)"]
+        UB2["Docker.raw (Independent copy)"]
+        UB3["DerivedData & Claude VMs (Independent copy)"]
+    end
+
+    SystemStorage -.-> UserA
+    SystemStorage -.-> UserB
+```
+
