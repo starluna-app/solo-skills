@@ -231,3 +231,11 @@ flowchart TD
     SystemStorage -.-> UserB
 ```
 
+### 4. The Multi-User "Permission Illusion" (Why Unprivileged Scans Underestimate Storage)
+When running disk usage utilities (`du -sh /Users/*`) from a standard non-root shell:
+- macOS POSIX file permissions (`drwx------` / `0700` on `~/Library`) prevent User A from reading User B's `Library` or private app containers.
+- The standard `du` command **silently skips all permission-denied directories** without adding their size to the total.
+- **The Result:** User B may appear deceptively small (e.g., reporting only a few megabytes or gigabytes of public files), while secretly hoarding **50–150+ GB of Xcode test clones, DerivedData, and Docker images** inside their protected `~/Library/`.
+- **Accurate Sizing:** To accurately measure other users' storage, elevated root access (`sudo du -sh /Users/*`) or logging directly into that user account is required.
+
+
