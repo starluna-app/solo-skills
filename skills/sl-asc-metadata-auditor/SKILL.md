@@ -48,6 +48,20 @@ A specialized quality-assurance and optimization skill that inspects, audits, en
 
 ---
 
+## 📚 Official Apple Guidelines & Policy References
+
+1. **[Guideline 2.1 — App Completeness](https://developer.apple.com/app-store/review/guidelines/#app-completeness)**:
+   > *"If your app includes account-based features, provide an active demo account or fully-configured demo mode… If any in-app purchase items cannot be easily found, provide a detailed explanation in the App Review notes."*
+2. **[Guideline 2.3 — Accurate Metadata](https://developer.apple.com/app-store/review/guidelines/#accurate-metadata)**:
+   > *"Apps must clearly describe new features and product changes in the ‘What’s New’ text… more significant changes must be explicitly listed."*
+3. **[App Store Connect Help — Provide App Review Information](https://developer.apple.com/help/app-store-connect/manage-app-information/provide-app-review-information/)**:
+   > *"Provide instructions and credentials necessary for our team to test your app… Include steps to access paid features or non-obvious functionality."*
+4. **Policy on Repeating Old Features**:
+   - **"What's New" (User-Facing)**: **Never** repeat features from past releases. Strictly describe the delta/changes for the current version.
+   - **"App Review Notes" (Internal)**: Do **not** repeat old feature descriptions. Only specify testing steps for newly reviewable features + demo account / paywall sandbox access rules.
+
+---
+
 ## 🛠️ Audit & Synchronization Workflow
 
 ```mermaid
