@@ -32,6 +32,8 @@ A standardized, highly safe end-to-end release pipeline for the **Luna Bee (path
    - Capture architectural rationale, Swift 6 concurrency boundaries, UI/UX tokens, and model decisions.
 6. **Multi-Locale Metadata Sync**:
    - Maintain canonical file-backed metadata under `metadata/version/<version>/<locale>/` (supporting `en-US`, `zh-Hans`, and other supported locales).
+7. **Credential and Signing Recovery**:
+   - If `asc` reports missing profile credentials, Keychain storage fails, `codesign` returns `errSecInternalComponent`, or an accepted upload has not indexed, stop at that stage and use `sl-ios-testflight-auth-recovery`. Resume the same release after recovery; do not rotate keys, bump again, or upload a duplicate by default.
 
 ---
 

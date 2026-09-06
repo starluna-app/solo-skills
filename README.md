@@ -68,6 +68,7 @@ npx solo-skills
 | `sl-ios-release-flow` | Safety-gated build shipping: blocker reviews, backend deployment verification, and TestFlight upload. | Continuous iOS Delivery |
 | `sl-ios-push-to-testflight` | Complete StarLuna iOS release workflow: commits with architectural rationale, bumps build number monotonically via ASC, archives & exports IPA, and uploads to TestFlight. | Generic iOS TestFlight Shipping |
 | `sl-ios-lunabee-push-to-testflight` | Gated release pipeline for Luna Bee (path): dual-environment backend parity, 3 safety gates, ASC auto-bump, serial archive, TestFlight upload, and multi-locale metadata sync. | Luna Bee iOS TestFlight Shipping |
+| `sl-ios-testflight-auth-recovery` | Diagnoses and recovers ASC profile/API-key resolution, macOS Keychain signing, archive, and TestFlight processing failures without unnecessary key rotation or duplicate uploads. | TestFlight Release Recovery |
 | `local-drive-clean` | Safely identifies and purges developer disk bloat (XCTestDevices, DerivedData, old Simulator runtimes, package caches). | macOS Disk Space Recovery |
 | `market-research` | Researches target industries, analyzes competitors, and outputs structured market gap reports. | Idea Validation & Strategy |
 | `social-writer` | Converts changelogs and product updates into tailored copy for Reddit, X/Twitter, and Indie Hackers. | Community Marketing |

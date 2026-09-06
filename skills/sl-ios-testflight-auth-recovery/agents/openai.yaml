@@ -1,0 +1,4 @@
+interface:
+  display_name: "TestFlight Auth Recovery"
+  short_description: "Recover ASC authentication and Xcode signing failures"
+  default_prompt: "Diagnose and recover this TestFlight upload or archive authentication failure without rotating credentials unnecessarily."

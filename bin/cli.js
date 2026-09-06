@@ -20,6 +20,7 @@ console.log(" - official-resource-image-pipeline: Official printable/visual reso
 console.log(" - sl-backend-deploy-sync: Dual-branch synchronization and deployment verification for UAT/PROD repos");
 console.log(" - sl-ios-app-store-release: End-to-end 7-phase App Store release automation via asc CLI");
 console.log(" - sl-ios-release-flow: Safety-gated continuous build shipping and TestFlight delivery");
+console.log(" - sl-ios-testflight-auth-recovery: Recover ASC authentication, Keychain signing, and TestFlight processing failures");
 console.log(" - social-writer: Multi-platform social media copywriter for indie hackers");
 console.log(" - youtube-channel-planner: Advanced YouTube channel creation & content planner");
 console.log("");

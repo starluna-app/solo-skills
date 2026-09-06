@@ -28,6 +28,7 @@ A standardized, end-to-end release pipeline for StarLuna iOS applications built 
    - **What's New / TestFlight Notes**: Clear, user-facing summary of new capabilities and fixes since the last released version.
    - **App Description**: Never make drastic rewrites. Make targeted, surgical enhancements reflecting new features and clearly document the diff.
 6. **Reuses Existing Tooling**: Composes with `asc` CLI, `xcodebuild`, and centralized skill scripts (`testflight-next-build.sh`, `archive-and-export.sh`).
+7. **Credential and Signing Recovery**: If `asc` reports missing profile credentials, Keychain storage fails, `codesign` returns `errSecInternalComponent`, or an accepted upload has not indexed, stop at that stage and use `sl-ios-testflight-auth-recovery`. Resume the same release after recovery; do not rotate keys, bump again, or upload a duplicate by default.
 
 ---
 
