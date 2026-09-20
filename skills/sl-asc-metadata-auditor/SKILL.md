@@ -58,7 +58,7 @@ A specialized quality-assurance and optimization skill that inspects, audits, en
    > *"Provide instructions and credentials necessary for our team to test your app… Include steps to access paid features or non-obvious functionality."*
 4. **Policy on Repeating Old Features**:
    - **"What's New" (User-Facing)**: **Never** repeat features from past releases. Strictly describe the delta/changes for the current version.
-   - **"App Review Notes" (Internal)**: Do **not** repeat old feature descriptions. Only specify testing steps for newly reviewable features + demo account / paywall sandbox access rules.
+   - **"App Review Notes" (Internal)**: Do **not** repeat old feature descriptions. Specify only testing steps for newly reviewable features and the minimum access constraint required for those steps. Keep credentials in ASC's dedicated fields.
 
 ---
 
@@ -110,8 +110,8 @@ asc subscriptions pricing summary --app "$APP_ID" --pretty
 | **Keywords** | 100 chars | Comma-separated, no spaces after commas, no single-word repeats from Title/Subtitle. |
 | **Promotional Text** | 170 chars | Impactful hook explaining product benefit; updateable without a new binary submission. |
 | **Description** | 4000 chars | Structured sections: Hook, Value Props, Feature Bullets, Target Audience, Privacy, Pricing/Terms. |
-| **What's New** | 4000 chars | 4–7 bullet points covering user-facing capabilities shipped in this version. |
-| **Review Notes** | 4000 chars | Demo credentials, pre-loaded data walkthrough, feature testing steps, paywall/IAP sandbox instructions. |
+| **What's New** | 4000 chars | Only the user-facing capabilities added or materially changed in this version. Use as few bullets as accurately cover the release. |
+| **Review Notes** | 4000 chars | Only the shortest test paths for newly reviewable behavior, plus any access constraint required to test that behavior. Do not duplicate credentials from ASC's dedicated fields. |
 
 ### Step 4: Verify Demo Account, Backend Ground-Truth & Reviewer Notes
 
@@ -124,15 +124,13 @@ To ensure zero friction and zero review delays, strictly enforce the **Three Gol
    - Verify subscription entitlements in database match what notes state (`isEntitled = false` for free-tier testing).
 
 2. **Rule 2: Zero Legacy Noise (Complexity Reduction)**:
-   - Strip out descriptions of features released and approved in previous app versions.
+   - Strip out descriptions of features released and approved in previous app versions, even when they are part of the reviewer’s path through the app.
    - Reviewers must not be overwhelmed with legacy architectural summaries; keep notes razor-focused on the active review scope.
 
 3. **Rule 3: Actionable Tap-Paths Only (Visible & Testable)**:
-   - Every single bullet point must guide the reviewer to a physical, testable UI interaction:
-     - *Workspace*: Tap pre-loaded project card → view completed brief & sources → open Social Plan → test pre-reveal strategy or Visual Studio.
-     - *Schedule / Calendar*: Tap project filter chips → tap auto-schedule banner → test AI peak time proposals & toggle auto-post.
-     - *Polish*: Tap pre-loaded polish examples or paste scratch text to test.
-     - *Paywall / IAP*: Clarify the 4 free reveals per project, show where the paywall appears (post 5+ or Profile), and confirm no purchase is required to inspect Restore Purchases, localized price, or legal links.
+   - Every bullet must guide the reviewer to a physical, testable interaction that was added or materially changed in the candidate release.
+   - Omit established Workspace, AI, Polish, sign-in, subscription, legal-link, and account-management flows unless the candidate release changes them in a way the reviewer must test.
+   - State only the minimum reliable path and any constraint that prevents a misleading result. For example: *Calendar*: choose a project with filter chips → reveal a draft in Social Plan → tap Review & Schedule → edit a preset local time → save a manual reminder. *LinkedIn*: connect an account in Profile → publish a text post when chosen; other platforms use copy/open handoff.
 
 ### Step 5: Synchronize & Generate Audit Report
 1. Push validated metadata and review notes to App Store Connect via `asc`.

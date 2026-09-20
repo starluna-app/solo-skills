@@ -24,7 +24,7 @@ echo "==> Next build number: $NEXT_BUILD"
 if [ "${1:-}" = "--bump" ]; then
   if [ -f "$REPO_DIR/project.yml" ]; then
     echo "==> Updating CURRENT_PROJECT_VERSION in project.yml to $NEXT_BUILD..."
-    sed -i '' -E "s/(CURRENT_PROJECT_VERSION:[[:space:]]*\")[0-9]+(\")/\1$NEXT_BUILD\2/" "$REPO_DIR/project.yml"
+    sed -i '' -E "s/(CURRENT_PROJECT_VERSION:[[:space:]]*)\"?[0-9]+\"?/\1$NEXT_BUILD/" "$REPO_DIR/project.yml"
     echo "==> Regenerating Xcode project via xcodegen..."
     (cd "$REPO_DIR" && xcodegen generate)
   elif [ -f "$REPO_DIR/Config/Shared.xcconfig" ]; then
